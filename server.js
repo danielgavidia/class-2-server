@@ -22,9 +22,10 @@ const data = [
 ];
 
 // Get
-app.get("/id:", (req, res) => {
-    const id = req.params.id;
+app.get("/api/users/:id", (req, res) => {
+    const id = Number(req.params.id);
     const user = data.find((u) => u.id === id);
+    console.log(user);
     res.json(user);
 });
 
