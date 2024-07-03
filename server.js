@@ -69,6 +69,8 @@ app.put("/api/users/:id", (req, res) => {
             };
         }
     });
+    const updatedUser = USERS.find((u) => u.id === id);
+    res.status(200).json(updatedUser);
 });
 
 app.listen(port, () => {

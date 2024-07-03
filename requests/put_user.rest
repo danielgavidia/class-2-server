@@ -1,0 +1,7 @@
+PUT https://class-2-server-hwjo.onrender.com/api/users/1
+content-type: application/json
+
+{
+    "name": "TEST TEST",
+    "email": "test@gmail.com"
+}

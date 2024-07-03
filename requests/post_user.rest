@@ -1,0 +1,7 @@
+POST https://class-2-server-hwjo.onrender.com/api/users
+content-type: application/json
+
+{
+    "name": "Daniel Gavidia",
+    "email": "gmail@gmail.com"
+}
