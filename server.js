@@ -15,13 +15,18 @@ app.get("/", (req, res) => {
 });
 
 // -----
-const USERS = [
+let USERS = [
     { id: 1, name: "Alice", email: "alice@example.com" },
     { id: 2, name: "Bob", email: "bob@example.com" },
     { id: 3, name: "Charlie", email: "charlie@example.com" },
 ];
 
-// Get
+// Get all users
+app.get("/api/users", (req, res) => {
+    res.status(200).json(USERS);
+});
+
+// Get single user
 app.get("/api/users/:id", (req, res) => {
     const user = USERS.find((u) => u.id === parseInt(req.params.id));
     if (!user) return res.status(404).send("User not found!");
@@ -39,6 +44,31 @@ app.post("/api/users", (req, res) => {
     };
     USERS.push(user);
     res.status(200).json(user);
+});
+
+// Delete
+app.delete("/api/users/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    USERS = USERS.filter((u) => u.id !== id);
+    res.status(200).json(USERS);
+});
+
+// Put
+app.put("/api/users/:id", (req, res) => {
+    if (!req.body.name || !req.body.email)
+        return res.status(404).send("Missing required fields!");
+    const id = parseInt(req.params.id);
+    USERS = USERS.map((u) => {
+        if (u.id !== id) {
+            return u;
+        } else if (u.id === id) {
+            return {
+                ...u,
+                name: req.body.name,
+                email: req.body.email,
+            };
+        }
+    });
 });
 
 app.listen(port, () => {
